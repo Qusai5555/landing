@@ -1,12 +1,435 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AIX Solutions</title>
+  <style>
+    /* Logic: Define clean premium look + maroon accent. */
+    :root{
+      --maroon:#7A1230;
+      --text:#111;
+      --muted:#666;
+      --border:#E8E8EE;
+      --card:#F7F7F9;
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --radius: 22px;
+      --container: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:#fff;
+    }
+
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* ====== SERVICES SLIDER SECTION ====== */
+    .services{
+      padding: 84px 0 90px;
+      background:
+        radial-gradient(800px 300px at 15% 10%, rgba(122,18,48,.08), transparent 60%),
+        radial-gradient(700px 260px at 85% 15%, rgba(0,0,0,.05), transparent 60%),
+        #fff;
+    }
+
+    .services__head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom: 18px;
+    }
+
+    .services__title{
+      margin:0;
+      font-size: 34px;
+      letter-spacing: -0.6px;
+    }
+
+    .services__subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 62ch;
+      font-size: 16px;
+    }
+
+    /* Logic: Progress/indicators show user where they are in the story. */
+    .dots{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 6px;
+      user-select:none;
+    }
+    .dot{
+      width: 34px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(122,18,48,.15);
+      border: 1px solid rgba(122,18,48,.12);
+      cursor:pointer;
+      transition: transform .2s ease, background .25s ease;
+    }
+    .dot:hover{ transform: translateY(-1px); }
+    .dot.active{ background: var(--maroon); }
+
+    /* Logic: Big visual-first card where image is the hero. */
+    .slider{
+      position:relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #fff, #fafafb);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .slide{
+      display:grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 26px;
+      align-items:center;
+      padding: 26px;
+      min-height: 420px;
+      position:absolute;
+      inset:0;
+      opacity:0;
+      pointer-events:none;
+      transform: translateX(30px);
+      transition: opacity .45s ease, transform .7s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .slide.active{
+      opacity:1;
+      pointer-events:auto;
+      transform: translateX(0);
+      position:relative;
+    }
+
+    /* Logic: Directional movement makes it feel like a real carousel. */
+    .slide.enter-from-right{ transform: translateX(42px); }
+    .slide.enter-from-left{ transform: translateX(-42px); }
+    .slide.active.enter-from-right,
+    .slide.active.enter-from-left{ transform: translateX(0); }
+
+    .content h3{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: -0.5px;
+    }
+    .content p{
+      margin: 10px 0 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    /* Logic: Tags summarize key capabilities without long text. */
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .tag{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(122,18,48,.18);
+      color: var(--maroon);
+      font-weight: 700;
+      font-size: 13px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    /* Logic: Hover micro-interaction gives premium feel. */
+    .tag:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(122,18,48,.12);
+    }
+
+    /* Image side */
+    .visual{
+      height: 100%;
+      border-radius: calc(var(--radius) - 6px);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      background:
+        radial-gradient(800px 380px at 20% 20%, rgba(122,18,48,.20), transparent 60%),
+        radial-gradient(700px 360px at 70% 60%, rgba(0,0,0,.12), transparent 65%),
+        linear-gradient(135deg, rgba(122,18,48,.08), rgba(0,0,0,.04));
+      position:relative;
+    }
+
+    /* Logic: Replace later with real images; keep a stylish placeholder now. */
+    .visual::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        conic-gradient(from 180deg, rgba(122,18,48,.25), rgba(0,0,0,.08), rgba(122,18,48,.18));
+      filter: blur(18px);
+      animation: slowSpin 14s linear infinite;
+      opacity:.9;
+    }
+
+    .visual::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(220px 160px at 30% 35%, rgba(255,255,255,.55), transparent 70%),
+        radial-gradient(240px 180px at 72% 62%, rgba(255,255,255,.35), transparent 70%);
+      mix-blend-mode: overlay;
+      opacity:.9;
+    }
+
+    @keyframes slowSpin{
+      from{ transform: rotate(0deg); }
+      to{ transform: rotate(360deg); }
+    }
+
+    /* Controls */
+    .controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 14px;
+      gap: 12px;
+      user-select:none;
+    }
+
+    .hint{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btns{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    /* Logic: Buttons allow manual navigation; any interaction stops autoplay. */
+    .btn{
+      border: 1px solid var(--border);
+      background:#fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(0,0,0,.10);
+      border-color: rgba(122,18,48,.28);
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .services__head{ flex-direction:column; align-items:flex-start; }
+      .slide{
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .visual{ height: 280px; }
+    }
+  </style>
 </head>
-<body style="font-family:system-ui; background:#fff; color:#111; padding:40px">
-  <h1 style="color:#7a1230">AIX Solutions</h1>
-  <p>الموقع شغال ✅ (GitHub Pages + Cloudflare + Domain)</p>
+<body>
+
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services__head">
+        <div>
+          <h2 class="services__title">Our Services</h2>
+          <p class="services__subtitle">
+            Visual-first, interactive slides. Auto-plays smoothly, and stops the moment you interact.
+          </p>
+        </div>
+
+        <div class="dots" id="dots" aria-label="Service slide indicators"></div>
+      </div>
+
+      <div class="slider" id="slider" aria-live="polite"></div>
+
+      <div class="controls">
+        <div class="hint">Tip: Scroll inside this section to move between slides (auto stops on interaction).</div>
+        <div class="btns">
+          <button class="btn" id="prev" type="button">← Prev</button>
+          <button class="btn" id="next" type="button">Next →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Logic: Slides are the story; order matches your priority.
+    const slides = [
+      {
+        title: "AI Solutions",
+        desc: "Chatbots, AI Agents, and Computer Vision systems designed to solve real business problems.",
+        tags: ["Chatbots", "AI Agents", "Computer Vision"]
+      },
+      {
+        title: "Automations",
+        desc: "Automate workflows, connect tools, and eliminate repetitive tasks to save time and reduce cost.",
+        tags: ["Workflows", "Integrations", "Efficiency"]
+      },
+      {
+        title: "Applications with AI",
+        desc: "Build AI-powered applications that turn ideas into real products with measurable impact.",
+        tags: ["AI Apps", "Custom Systems", "Deployment"]
+      },
+      {
+        title: "Interactive Web",
+        desc: "Fast, clean, motion-rich websites focused on user experience and conversion.",
+        tags: ["Motion UI", "Performance", "UX"]
+      },
+      {
+        title: "Business Intelligence",
+        desc: "Modern dashboards and analytics to turn data into insights and better decisions.",
+        tags: ["Dashboards", "Insights", "Data"]
+      }
+    ];
+
+    const slider = document.getElementById("slider");
+    const dotsWrap = document.getElementById("dots");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    let active = 0;
+    let autoplay = true;
+    let timer = null;
+    let lastDir = "right"; // used for enter animation direction
+
+    // Logic: Render dots once and keep them in sync with active slide.
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, i) => {
+        const d = document.createElement("div");
+        d.className = "dot" + (i === active ? " active" : "");
+        d.title = `Go to slide ${i+1}`;
+        d.addEventListener("click", () => { stopAutoplay(); goTo(i, i > active ? "right" : "left"); });
+        dotsWrap.appendChild(d);
+      });
+    }
+
+    // Logic: Create slide DOM; visual is placeholder now (replace with real images later).
+    function renderSlides(){
+      slider.innerHTML = "";
+      slides.forEach((s, i) => {
+        const el = document.createElement("div");
+        el.className = "slide" + (i === active ? " active" : "");
+        el.setAttribute("data-index", String(i));
+
+        const content = document.createElement("div");
+        content.className = "content";
+        content.innerHTML = `
+          <h3>${s.title}</h3>
+          <p>${s.desc}</p>
+          <div class="tags">
+            ${s.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+          </div>
+        `;
+
+        const visual = document.createElement("div");
+        visual.className = "visual";
+        // Logic: For now a premium animated placeholder; later we swap to real images per slide.
+
+        el.appendChild(content);
+        el.appendChild(visual);
+        slider.appendChild(el);
+      });
+    }
+
+    function updateActiveClasses(dir){
+      const all = slider.querySelectorAll(".slide");
+      all.forEach((el, i) => {
+        el.classList.remove("active", "enter-from-right", "enter-from-left");
+        if(i === active){
+          el.classList.add("active");
+          el.classList.add(dir === "right" ? "enter-from-right" : "enter-from-left");
+        }
+      });
+
+      const dots = dotsWrap.querySelectorAll(".dot");
+      dots.forEach((d, i) => d.classList.toggle("active", i === active));
+    }
+
+    // Logic: Stop autoplay on any user interaction.
+    function stopAutoplay(){
+      autoplay = false;
+      if(timer) clearInterval(timer);
+      timer = null;
+    }
+
+    function goTo(index, dir){
+      active = (index + slides.length) % slides.length;
+      lastDir = dir;
+      updateActiveClasses(dir);
+    }
+
+    function next(){
+      goTo(active + 1, "right");
+    }
+
+    function prev(){
+      goTo(active - 1, "left");
+    }
+
+    // Logic: Auto-advance tells the story until the user takes control.
+    function startAutoplay(){
+      if(timer) clearInterval(timer);
+      timer = setInterval(() => {
+        if(!autoplay) return;
+        next();
+      }, 3500);
+    }
+
+    // Logic: Scroll within section moves slides; first manual scroll stops autoplay.
+    function enableScrollControl(){
+      let scrollLock = false;
+
+      window.addEventListener("wheel", (e) => {
+        const section = document.getElementById("services");
+        const rect = section.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
+        if(!inView) return;
+
+        // Stop autoplay on interaction
+        stopAutoplay();
+
+        if(scrollLock) return;
+        scrollLock = true;
+
+        if(e.deltaY > 0) next();
+        else prev();
+
+        setTimeout(() => { scrollLock = false; }, 700); // match animation feel
+      }, { passive: true });
+
+      // Any click inside slider stops autoplay
+      slider.addEventListener("click", stopAutoplay);
+      prevBtn.addEventListener("click", () => { stopAutoplay(); prev(); });
+      nextBtn.addEventListener("click", () => { stopAutoplay(); next(); });
+    }
+
+    // Init
+    renderSlides();
+    renderDots();
+    enableScrollControl();
+    startAutoplay();
+  </script>
+
 </body>
 </html>
