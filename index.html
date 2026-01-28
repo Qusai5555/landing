@@ -15,15 +15,23 @@
   <!-- HEADER -->
   <header class="main-header">
     <div class="container">
-      <div class="header-row">
+      <div class="header-row header-row-v3">
 
-        <!-- Logo only (NO TEXT) -->
+        <!-- LEFT: Brand (logo + text) -->
         <div class="brand" aria-label="AIX Solutions">
           <img class="brand-logo" src="images/logo/logo-header.png" alt="AIX Solutions" />
+          <span class="brand-text">AIX Solutions</span>
         </div>
 
+        <!-- CENTER: Tabs -->
+        <nav class="header-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link nav-link-active" href="#services">Services</a>
+          <a class="nav-link" href="#contact">Contact</a>
+        </nav>
+
+        <!-- RIGHT: Social + Search -->
         <div class="header-actions">
-          <!-- Replace href with your real social links -->
           <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5v1.8H17l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/>
@@ -42,7 +50,6 @@
             </svg>
           </a>
 
-          <!-- Search (visual only for now) -->
           <button class="icon-btn" type="button" aria-label="Search">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M10 2a8 8 0 1 0 4.9 14.3l4.4 4.4 1.4-1.4-4.4-4.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/>
@@ -54,153 +61,145 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="container">
-      <div class="hero-inner">
+  <!-- PAGE BG WRAPPER (background from after header to before footer) -->
+  <div class="page-bg">
 
-        <div>
-          <h1 class="hero-title">AIX Solutions</h1>
-          <p class="hero-sub">
-            Smart AI, automation, and interactive web solutions — engineered to turn ideas into real products.
-          </p>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-inner">
 
-          <div class="hero-cta" aria-label="Primary actions">
-            <a class="btn-hero btn-primary" href="#contact">Get in Touch</a>
-            <a class="btn-hero btn-secondary" href="#services">View Services</a>
-            <button class="btn-hero btn-ghost" type="button" disabled aria-disabled="true" title="Coming soon">
-              Start a Project
-            </button>
+          <div id="about">
+            <h1 class="hero-title">AIX Solutions</h1>
+
+            <!-- About (4–5 lines) -->
+            <p class="hero-about">
+              We build smart AI solutions and automation systems that turn ideas into real, scalable products.
+              From AI agents and chatbots to interactive web experiences, we focus on clarity, performance, and impact.
+              Our approach is simple: understand the goal, design the right system, and deliver with quality and speed.
+              If you want reliable execution with modern tech, we’re ready to build with you.
+            </p>
           </div>
 
-          <div class="hero-chiprow" aria-label="Key capabilities">
-            <span class="chip">AI Agents</span>
-            <span class="chip">Chatbots</span>
-            <span class="chip">Computer Vision</span>
-            <span class="chip">Automation</span>
-            <span class="chip">Interactive Web</span>
-            <span class="chip">Smart Applications</span>
-            <span class="chip">Software Solutions</span>
-          </div>
-        </div>
-
-        <!-- Hero Logo (float + dynamic shadow) -->
-        <div class="hero-logo-stage" aria-hidden="true">
-          <div class="hero-logo-wrap" id="heroLogoWrap">
-            <div class="hero-logo-tilt" id="heroLogoTilt">
-              <img class="hero-logo" src="images/logo/logo-hero.png" alt="" draggable="false" />
+          <!-- Hero Logo (float + dynamic shadow) -->
+          <div class="hero-logo-stage" aria-hidden="true">
+            <div class="hero-logo-wrap" id="heroLogoWrap">
+              <div class="hero-logo-tilt" id="heroLogoTilt">
+                <img class="hero-logo" src="images/logo/logo-hero.png" alt="" draggable="false" />
+              </div>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="container">
-      <div class="services__head">
-        <div>
-          <h2 class="services__title">Our Services</h2>
-          <p class="services__subtitle">
-            Visual-first, interactive slides. Auto-plays smoothly, and stops the moment you interact.
-          </p>
-        </div>
-
-        <div class="dots" id="dots" aria-label="Service slide indicators"></div>
-      </div>
-
-      <div class="slider" id="slider" aria-live="polite"></div>
-
-      <div class="controls">
-        <div class="hint">Tip: Use Prev/Next to navigate (auto stops on interaction).</div>
-        <div class="btns">
-          <button class="btn" id="prev" type="button">← Prev</button>
-          <button class="btn" id="next" type="button">Next →</button>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WHY US -->
-  <section class="why" id="why">
-    <div class="container">
-      <h2 class="why-title">Why Choose AIX Solutions</h2>
-      <p class="why-sub">
-        A balanced set of reasons—built for trust, speed, and real-world outcomes.
-      </p>
-
-      <div class="why-grid why-grid-6" id="whyGrid">
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">🧠</div>
-          <h4>AI-First Architecture</h4>
-          <p>We design systems with AI at the core, not as an add-on.</p>
-        </div>
-
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">📈</div>
-          <h4>Real Business Impact</h4>
-          <p>Solutions focused on measurable results, not just technology.</p>
-        </div>
-
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">🧩</div>
-          <h4>Scalable &amp; Future-Ready</h4>
-          <p>Built to grow, adapt, and scale as your business evolves.</p>
-        </div>
-
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">⚙️</div>
-          <h4>Performance &amp; Reliability</h4>
-          <p>Optimized for speed, stability, and long-term reliability.</p>
-        </div>
-
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">🔁</div>
-          <h4>Smart Automation Mindset</h4>
-          <p>Automation designed to simplify operations and save time.</p>
-        </div>
-
-        <div class="card why-card">
-          <div class="mini-icon" aria-hidden="true">🤝</div>
-          <h4>Partnership, Not Just Delivery</h4>
-          <p>We work as long-term partners, not just service providers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="cta cta-final" id="contact">
-    <div class="container">
-      <div class="cta-box cta-final-box">
-        <div class="cta-copy">
-          <h3>Let’s build something intelligent together.</h3>
-          <p>
-            When you reach out to AIX Solutions, your ideas and information are treated with care and professionalism.
-            We use trusted tools and modern technologies to collaborate clearly, securely, and efficiently.
-          </p>
-
-          <div class="cta-trust" aria-label="Trust highlights">
-            <span class="cta-pill">Secure communication</span>
-            <span class="cta-pill">Trusted tools &amp; platforms</span>
-            <span class="cta-pill">Transparent collaboration</span>
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <div class="container">
+        <div class="services__head">
+          <div>
+            <h2 class="services__title">Our Services</h2>
+            <p class="services__subtitle">
+              Visual-first, interactive slides. Auto-plays smoothly, and stops the moment you interact.
+            </p>
           </div>
 
-          <div class="cta-mail">contact@aixsolutionss.com</div>
+          <div class="dots" id="dots" aria-label="Service slide indicators"></div>
+        </div>
 
-          <div class="cta-note">
-            By contacting us, you agree to professional use of communication tools and responsible handling of information.
+        <div class="slider" id="slider" aria-live="polite"></div>
+
+        <div class="controls">
+          <div class="hint">Tip: Use Prev/Next to navigate (auto stops on interaction).</div>
+          <div class="btns">
+            <button class="btn" id="prev" type="button">← Prev</button>
+            <button class="btn" id="next" type="button">Next →</button>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="cta-actions">
-          <a class="cta-btn" href="mailto:contact@aixsolutionss.com">Contact Us</a>
+    <!-- WHY US -->
+    <section class="why" id="why">
+      <div class="container">
+        <h2 class="why-title">Why Choose AIX Solutions</h2>
+        <p class="why-sub">
+          A balanced set of reasons—built for trust, speed, and real-world outcomes.
+        </p>
+
+        <div class="why-grid why-grid-6" id="whyGrid">
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">🧠</div>
+            <h4>AI-First Architecture</h4>
+            <p>We design systems with AI at the core, not as an add-on.</p>
+          </div>
+
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">📈</div>
+            <h4>Real Business Impact</h4>
+            <p>Solutions focused on measurable results, not just technology.</p>
+          </div>
+
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">🧩</div>
+            <h4>Scalable &amp; Future-Ready</h4>
+            <p>Built to grow, adapt, and scale as your business evolves.</p>
+          </div>
+
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">⚙️</div>
+            <h4>Performance &amp; Reliability</h4>
+            <p>Optimized for speed, stability, and long-term reliability.</p>
+          </div>
+
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">🔁</div>
+            <h4>Smart Automation Mindset</h4>
+            <p>Automation designed to simplify operations and save time.</p>
+          </div>
+
+          <div class="card why-card">
+            <div class="mini-icon" aria-hidden="true">🤝</div>
+            <h4>Partnership, Not Just Delivery</h4>
+            <p>We work as long-term partners, not just service providers.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta cta-final" id="contact">
+      <div class="container">
+        <div class="cta-box cta-final-box">
+          <div class="cta-copy">
+            <h3>Let’s build something intelligent together.</h3>
+            <p>
+              When you reach out to AIX Solutions, your ideas and information are treated with care and professionalism.
+              We use trusted tools and modern technologies to collaborate clearly, securely, and efficiently.
+            </p>
+
+            <div class="cta-trust" aria-label="Trust highlights">
+              <span class="cta-pill">Secure communication</span>
+              <span class="cta-pill">Trusted tools &amp; platforms</span>
+              <span class="cta-pill">Transparent collaboration</span>
+            </div>
+
+            <div class="cta-mail">contact@aixsolutionss.com</div>
+
+            <div class="cta-note">
+              By contacting us, you agree to professional use of communication tools and responsible handling of information.
+            </div>
+          </div>
+
+          <div class="cta-actions">
+            <a class="cta-btn" href="mailto:contact@aixsolutionss.com">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-bg -->
 
   <!-- FOOTER -->
   <footer class="footer footer-v2">
