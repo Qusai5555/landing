@@ -3,11 +3,16 @@ document.getElementById('y').textContent = new Date().getFullYear();
 
 /* =========================
   HERO LOGO TILT (mouse move)
+  (Skip on touch devices)
 ========================= */
 (function(){
   const wrap = document.getElementById('heroLogoWrap');
   const tilt = document.getElementById('heroLogoTilt');
   if(!wrap || !tilt) return;
+
+  // Avoid mouse listeners on touch devices
+  const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  if(isTouch) return;
 
   wrap.addEventListener('mousemove', (e) => {
     const r = wrap.getBoundingClientRect();
@@ -99,7 +104,10 @@ function renderSlides(){
       <div class="visual"><img src="${s.image}" alt="${s.title}"></div>
     `;
 
+    // any clear interaction stops autoplay
     el.addEventListener("click", stopAutoplay);
+    el.addEventListener("pointerdown", stopAutoplay, { passive: true });
+
     slider.appendChild(el);
   });
 }
@@ -134,6 +142,16 @@ function start(){
 
 prevBtn.addEventListener("click", () => { stopAutoplay(); prev(); });
 nextBtn.addEventListener("click", () => { stopAutoplay(); next(); });
+
+// Keyboard support (also stops autoplay)
+document.addEventListener("keydown", (e) => {
+  if(e.key === "ArrowRight"){ stopAutoplay(); next(); }
+  if(e.key === "ArrowLeft"){ stopAutoplay(); prev(); }
+}, { passive: true });
+
+// Touch scroll / interaction stops autoplay (lightweight)
+slider.addEventListener("wheel", stopAutoplay, { passive: true });
+slider.addEventListener("touchstart", stopAutoplay, { passive: true });
 
 renderSlides();
 renderDots();
