@@ -1,24 +1,26 @@
-// سنة الفوتر
+// =========================
+// FOOTER YEAR
+// =========================
 document.getElementById('y').textContent = new Date().getFullYear();
 
 /* =========================
-  HERO LOGO TILT (mouse move)
-  (Skip on touch devices)
+  HERO LOGO TILT (Desktop only)
 ========================= */
 (function(){
   const wrap = document.getElementById('heroLogoWrap');
   const tilt = document.getElementById('heroLogoTilt');
   if(!wrap || !tilt) return;
 
-  // Avoid mouse listeners on touch devices
-  const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  // Disable on touch devices
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
   if(isTouch) return;
 
   wrap.addEventListener('mousemove', (e) => {
     const r = wrap.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;
-    tilt.style.transform = `rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+    tilt.style.transform =
+      `rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
   });
 
   wrap.addEventListener('mouseleave', () => {
@@ -27,7 +29,7 @@ document.getElementById('y').textContent = new Date().getFullYear();
 })();
 
 /* =========================
-  SERVICES SLIDER
+  SERVICES SLIDER DATA
 ========================= */
 const slides = [
   {
@@ -62,10 +64,13 @@ const slides = [
   }
 ];
 
-const slider = document.getElementById("slider");
+/* =========================
+  SLIDER LOGIC
+========================= */
+const slider   = document.getElementById("slider");
 const dotsWrap = document.getElementById("dots");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
+const prevBtn  = document.getElementById("prev");
+const nextBtn  = document.getElementById("next");
 
 let active = 0;
 let autoplay = true;
@@ -79,96 +84,114 @@ function stopAutoplay(){
 function renderDots(){
   dotsWrap.innerHTML = "";
   slides.forEach((_, i) => {
-    const d = document.createElement("div");
-    d.className = "dot" + (i === active ? " active" : "");
-    d.addEventListener("click", () => {
+    const dot = document.createElement("div");
+    dot.className = "dot" + (i === active ? " active" : "");
+    dot.addEventListener("click", () => {
       stopAutoplay();
       goTo(i, i > active ? "right" : "left");
     });
-    dotsWrap.appendChild(d);
+    dotsWrap.appendChild(dot);
   });
 }
 
 function renderSlides(){
   slider.innerHTML = "";
   slides.forEach((s, i) => {
-    const el = document.createElement("div");
-    el.className = "slide" + (i === active ? " active" : "");
+    const slide = document.createElement("div");
+    slide.className = "slide" + (i === active ? " active" : "");
 
-    el.innerHTML = `
+    slide.innerHTML = `
       <div class="content">
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
-        <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+        <div class="tags">
+          ${s.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
       </div>
-      <div class="visual"><img src="${s.image}" alt="${s.title}"></div>
+      <div class="visual">
+        <img src="${s.image}" alt="${s.title}">
+      </div>
     `;
 
-    // any clear interaction stops autoplay
-    el.addEventListener("click", stopAutoplay);
-    el.addEventListener("pointerdown", stopAutoplay, { passive: true });
+    slide.addEventListener("click", stopAutoplay);
+    slide.addEventListener("pointerdown", stopAutoplay, { passive: true });
 
-    slider.appendChild(el);
+    slider.appendChild(slide);
   });
 }
 
-function update(dir){
-  const all = slider.querySelectorAll(".slide");
-  all.forEach((el, i) => {
-    el.classList.remove("active","enter-from-right","enter-from-left");
+function update(direction){
+  const allSlides = slider.querySelectorAll(".slide");
+  allSlides.forEach((slide, i) => {
+    slide.classList.remove("active", "enter-from-right", "enter-from-left");
     if(i === active){
-      el.classList.add("active");
-      el.classList.add(dir === "right" ? "enter-from-right" : "enter-from-left");
+      slide.classList.add("active");
+      slide.classList.add(
+        direction === "right" ? "enter-from-right" : "enter-from-left"
+      );
     }
   });
 
   dotsWrap.querySelectorAll(".dot")
-    .forEach((d,i)=>d.classList.toggle("active", i===active));
+    .forEach((d,i)=>d.classList.toggle("active", i === active));
 }
 
-function goTo(i, dir){
-  active = (i + slides.length) % slides.length;
-  update(dir);
+function goTo(index, direction){
+  active = (index + slides.length) % slides.length;
+  update(direction);
 }
 
 function next(){ goTo(active + 1, "right"); }
 function prev(){ goTo(active - 1, "left"); }
 
-function start(){
+function startAutoplay(){
   timer = setInterval(() => {
     if(autoplay) next();
   }, 2000);
 }
 
-prevBtn.addEventListener("click", () => { stopAutoplay(); prev(); });
-nextBtn.addEventListener("click", () => { stopAutoplay(); next(); });
+/* =========================
+  EVENTS
+========================= */
+prevBtn.addEventListener("click", () => {
+  stopAutoplay();
+  prev();
+});
 
-// Keyboard support (also stops autoplay)
+nextBtn.addEventListener("click", () => {
+  stopAutoplay();
+  next();
+});
+
 document.addEventListener("keydown", (e) => {
   if(e.key === "ArrowRight"){ stopAutoplay(); next(); }
   if(e.key === "ArrowLeft"){ stopAutoplay(); prev(); }
-}, { passive: true });
+});
 
-// Touch scroll / interaction stops autoplay (lightweight)
 slider.addEventListener("wheel", stopAutoplay, { passive: true });
 slider.addEventListener("touchstart", stopAutoplay, { passive: true });
 
+/* =========================
+  INIT
+========================= */
 renderSlides();
 renderDots();
-start();
+startAutoplay();
 
 /* =========================
-  WHY US ENTRY ANIMATION
+  WHY SECTION ANIMATION
 ========================= */
 (function(){
   const cards = document.querySelectorAll('.why-card');
   if(!cards.length) return;
 
-  const obs = new IntersectionObserver(entries => {
+  const observer = new IntersectionObserver(entries => {
     if(!entries[0].isIntersecting) return;
-    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('is-visible'), i*70));
-    obs.disconnect();
-  }, { threshold: .18 });
+    cards.forEach((card, i) => {
+      setTimeout(() => card.classList.add('is-visible'), i * 70);
+    });
+    observer.disconnect();
+  }, { threshold: 0.18 });
 
-  obs.observe(cards[0]);
+  observer.observe(cards[0]);
 })();
