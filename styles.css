@@ -1,8 +1,6 @@
 /* Logic: Clean premium look + maroon accent. */
 :root{
   --maroon:#7A1230;
-
-  /* ✅ NEW: dark maroon for text */
   --maroonDark:#5A0D23;
 
   --text:#111;
@@ -14,7 +12,7 @@
   --container: 1120px;
   --shadowSoft: 0 14px 30px rgba(0,0,0,.08);
 
-  /* ✅ NEW: gray page background (after header to before footer) */
+  /* Gray page background (after header to before footer) */
   --bgTop: #F3F4F6;
   --bgBottom: #E6E8ED;
   --bgGlow: #FFFFFF;
@@ -99,7 +97,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  height: 38px;                 /* match icon buttons */
+  height: 38px;
   padding: 0 14px;
   border-radius: 14px;
 
@@ -140,7 +138,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   cursor:pointer;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
 
-  /* was .78, make it whiter */
   color: rgba(255,255,255,.92);
 }
 .icon-btn:hover{
@@ -164,19 +161,14 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   background:
     radial-gradient(900px 420px at 20% 10%, var(--bgGlow) 0%, transparent 60%),
     linear-gradient(180deg, var(--bgTop) 0%, var(--bgBottom) 100%);
-
-  /* ✅ all text from after header to before footer */
   color: var(--maroonDark);
 }
 
-/* ✅ muted text becomes soft maroon (not gray) */
+/* Outside-card muted text becomes soft maroon (not gray) */
 .page-bg .hero-about,
 .page-bg .services__subtitle,
-.page-bg .content p,
 .page-bg .why-sub,
-.page-bg .hint,
-.page-bg .cta-copy p,
-.page-bg .cta-note{
+.page-bg .hint{
   color: rgba(90, 13, 35, .78);
 }
 
@@ -229,11 +221,9 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   position:relative;
   overflow:hidden;
 
-  /* Float animation */
   animation: heroFloat 4.6s ease-in-out infinite;
 }
 
-/* Soft premium overlay */
 .hero-logo-wrap::before{
   content:"";
   position:absolute;
@@ -246,7 +236,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   pointer-events:none;
 }
 
-/* Dynamic shadow */
 .hero-logo-wrap::after{
   content:"";
   position:absolute;
@@ -262,7 +251,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   pointer-events:none;
 }
 
-/* Tilt container (JS controls rotation) */
 .hero-logo-tilt{
   width:100%;
   height:100%;
@@ -274,10 +262,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   height:100%;
   object-fit:contain;
   display:block;
-
-  /* make logo larger inside without changing card size */
   padding: 10px;
-
   transform: translateZ(22px);
 }
 
@@ -415,14 +400,12 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   transition: opacity .22s ease, transform .22s ease;
 }
 
-/* reveal tags on hover of active slide */
 .slide.active:hover .tags{
   opacity:1;
   transform: translateY(0);
   pointer-events:auto;
 }
 
-/* stagger pop tags */
 .tag{
   padding: 8px 12px;
   border-radius: 999px;
@@ -596,7 +579,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   color: var(--text);
 }
 
-/* ✅ CTA box: same as header */
 .cta-final-box{
   border: 1px solid rgba(255,255,255,.18);
   border-radius: var(--radius);
@@ -613,7 +595,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   flex-wrap:wrap;
 }
 
-/* ✅ readable text inside CTA */
 .cta-copy p{
   opacity:.92;
   line-height: 1.75;
@@ -716,10 +697,9 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
     flex-wrap:wrap;
   }
 
-  .why-grid-6{ grid-template-columns: repeat(2, 1fr); } /* tablet: 2 columns */
+  .why-grid-6{ grid-template-columns: repeat(2, 1fr); }
   .slide{ min-height: 360px; }
 
-  /* show tags on touch devices (no hover) */
   .tags{
     opacity:1;
     transform:none;
@@ -733,7 +713,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 }
 
 @media (max-width: 560px){
-  .why-grid-6{ grid-template-columns:1fr; } /* mobile: 1 column */
+  .why-grid-6{ grid-template-columns:1fr; }
 
   .nav-link{ height: 36px; padding: 0 12px; }
   .brand-logo{ height: 34px; }
@@ -749,55 +729,83 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 }
 
 /* =========================
-  MOBILE CONSISTENCY PATCH
-  (Added as requested)
+  APPLY HEADER GRADIENT TO ALL CARDS (Why + Services + CTA)
+  - Text inside cards white
+  - Outside text stays maroon (page-bg)
 ========================= */
 
-/* Make sure elements don't overflow on small screens */
-.page-bg *{
-  max-width: 100%;
+/* WHY cards */
+.page-bg .card{
+  background: linear-gradient(135deg, #7A1230 0%, #5A0D23 100%);
+  border: 1px solid rgba(255,255,255,.18);
+  color:#fff;
+  box-shadow: 0 18px 46px rgba(0,0,0,.16);
+}
+.page-bg .card h4{ color:#fff; }
+.page-bg .card p{ color: rgba(255,255,255,.86); }
+
+.page-bg .mini-icon{
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
+  color:#fff;
 }
 
-/* CTA: stack nicely on mobile */
+/* SERVICES slider: outer card gradient + inner content same theme */
+.slider{
+  background: linear-gradient(135deg, #7A1230 0%, #5A0D23 100%) !important;
+  border: 1px solid rgba(255,255,255,.18);
+}
+.slide{ background: transparent; }
+
+.slide .content h3{ color:#fff; }
+.slide .content p{ color: rgba(255,255,255,.86); }
+
+/* Tags on dark */
+.tag{
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.92);
+}
+.tag:hover{
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+}
+
+/* Keep image borders consistent on dark */
+.visual{
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+/* =========================
+  MOBILE CONSISTENCY PATCH
+========================= */
+.page-bg *{ max-width: 100%; }
+
 @media (max-width: 560px){
   .cta-final-box{
     padding: 18px;
     gap: 14px;
   }
-
-  .cta-copy{
-    width: 100%;
-  }
-
+  .cta-copy{ width: 100%; }
   .cta-actions{
     width: 100%;
     display:flex;
     justify-content:flex-start;
   }
-
   .cta-btn{
     width: 100%;
     text-align:center;
     padding: 12px 14px;
   }
-
-  .cta-trust{
-    gap: 8px;
-  }
-
+  .cta-trust{ gap: 8px; }
   .cta-pill{
     font-size: 12px;
     padding: 8px 10px;
   }
-
   .cta-mail{
     font-size: 15px;
     word-break: break-word;
   }
-}
 
-/* Hero: keep logo card balanced on mobile */
-@media (max-width: 560px){
   .hero{
     padding: 64px 0 44px;
   }
@@ -810,10 +818,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   .hero-logo-wrap{
     width: min(360px, 100%);
   }
-}
 
-/* Services: make heading + dots wrap cleanly */
-@media (max-width: 560px){
   .services__head{
     align-items:flex-start;
     flex-direction: column;
@@ -823,12 +828,10 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
     padding-bottom: 0;
     flex-wrap: wrap;
   }
-  .dot{
-    width: 28px;
-  }
+  .dot{ width: 28px; }
 }
 
-/* ✅ Your added footer rule (kept) */
+/* Keep footer as-is (your rule) */
 footer{
   color: rgba(255,255,255,.72);
 }
