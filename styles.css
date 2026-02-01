@@ -1,6 +1,10 @@
 /* Logic: Clean premium look + maroon accent. */
 :root{
   --maroon:#7A1230;
+
+  /* ✅ NEW: dark maroon for text */
+  --maroonDark:#5A0D23;
+
   --text:#111;
   --muted:#666;
   --border:#E8E8EE;
@@ -10,10 +14,10 @@
   --container: 1120px;
   --shadowSoft: 0 14px 30px rgba(0,0,0,.08);
 
-  /* Selected page background (your choice: top-right) */
-  --bgTop: #F1E5EA;
-  --bgBottom: #EAD9DF;
-  --bgGlow: #F4EAEE;
+  /* ✅ NEW: gray page background (after header to before footer) */
+  --bgTop: #F3F4F6;
+  --bgBottom: #E6E8ED;
+  --bgGlow: #FFFFFF;
 
   /* Approx header height for anchor offsets */
   --headerH: 76px;
@@ -160,6 +164,20 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   background:
     radial-gradient(900px 420px at 20% 10%, var(--bgGlow) 0%, transparent 60%),
     linear-gradient(180deg, var(--bgTop) 0%, var(--bgBottom) 100%);
+
+  /* ✅ all text from after header to before footer */
+  color: var(--maroonDark);
+}
+
+/* ✅ muted text becomes soft maroon (not gray) */
+.page-bg .hero-about,
+.page-bg .services__subtitle,
+.page-bg .content p,
+.page-bg .why-sub,
+.page-bg .hint,
+.page-bg .cta-copy p,
+.page-bg .cta-note{
+  color: rgba(90, 13, 35, .78);
 }
 
 /* =========================
@@ -188,7 +206,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
 .hero-about{
   margin: 0;
-  color: var(--muted);
   max-width: 64ch;
   line-height: 1.85;
   font-size: 16px;
@@ -297,7 +314,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
 .services__subtitle{
   margin: 6px 0 0;
-  color: var(--muted);
   line-height: 1.7;
   max-width: 62ch;
   font-size: 16px;
@@ -365,7 +381,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 }
 .content p{
   margin: 10px 0 14px;
-  color: var(--muted);
   line-height: 1.75;
   font-size: 16px;
 }
@@ -482,7 +497,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 }
 
 .hint{
-  color: var(--muted);
   font-size: 13px;
 }
 
@@ -524,7 +538,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
 .why-sub{
   margin: 8px 0 0;
-  color: var(--muted);
   line-height: 1.75;
   max-width: 70ch;
 }
@@ -583,13 +596,16 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   color: var(--text);
 }
 
+/* ✅ CTA box: same as header */
 .cta-final-box{
-  border: 1px solid rgba(0,0,0,.10);
+  border: 1px solid rgba(255,255,255,.18);
   border-radius: var(--radius);
   padding: 26px;
-  box-shadow: 0 22px 60px rgba(0,0,0,.12);
-  background: rgba(255,255,255,.55);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 22px 60px rgba(0,0,0,.18);
+
+  background: linear-gradient(135deg, #7A1230 0%, #5A0D23 100%);
+  color: #fff;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -597,10 +613,12 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   flex-wrap:wrap;
 }
 
+/* ✅ readable text inside CTA */
 .cta-copy p{
   opacity:.92;
   line-height: 1.75;
   max-width: 70ch;
+  color: rgba(255,255,255,.88);
 }
 
 .cta-trust{
@@ -613,32 +631,39 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 .cta-pill{
   padding: 9px 12px;
   border-radius:999px;
-  border:1px solid rgba(122,18,48,.18);
-  background: rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
   font-weight:800;
   font-size:13px;
-  color: var(--maroon);
+  color: rgba(255,255,255,.92);
 }
 
 .cta-note{
   font-size:12px;
   opacity:.78;
   line-height:1.6;
+  color: rgba(255,255,255,.75);
+}
+
+.cta-mail{
+  color:#fff;
+  font-weight: 900;
 }
 
 .cta-btn{
-  border:1px solid rgba(122,18,48,.22);
-  background: linear-gradient(135deg, #7A1230, #2a0b14);
+  border:1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.12);
   color:#fff;
   border-radius:14px;
   padding:12px 16px;
   font-weight:900;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
 .cta-btn:hover{
   transform: translateY(-2px);
   box-shadow: 0 18px 36px rgba(0,0,0,.20);
+  background: rgba(255,255,255,.18);
 }
 
 /* =========================
@@ -721,4 +746,89 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   }
   .visual{ height: 220px; }
   .controls{ flex-wrap:wrap; }
+}
+
+/* =========================
+  MOBILE CONSISTENCY PATCH
+  (Added as requested)
+========================= */
+
+/* Make sure elements don't overflow on small screens */
+.page-bg *{
+  max-width: 100%;
+}
+
+/* CTA: stack nicely on mobile */
+@media (max-width: 560px){
+  .cta-final-box{
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .cta-copy{
+    width: 100%;
+  }
+
+  .cta-actions{
+    width: 100%;
+    display:flex;
+    justify-content:flex-start;
+  }
+
+  .cta-btn{
+    width: 100%;
+    text-align:center;
+    padding: 12px 14px;
+  }
+
+  .cta-trust{
+    gap: 8px;
+  }
+
+  .cta-pill{
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .cta-mail{
+    font-size: 15px;
+    word-break: break-word;
+  }
+}
+
+/* Hero: keep logo card balanced on mobile */
+@media (max-width: 560px){
+  .hero{
+    padding: 64px 0 44px;
+  }
+  .hero-title{
+    font-size: 40px;
+  }
+  .hero-logo-stage{
+    min-height: 300px;
+  }
+  .hero-logo-wrap{
+    width: min(360px, 100%);
+  }
+}
+
+/* Services: make heading + dots wrap cleanly */
+@media (max-width: 560px){
+  .services__head{
+    align-items:flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .dots{
+    padding-bottom: 0;
+    flex-wrap: wrap;
+  }
+  .dot{
+    width: 28px;
+  }
+}
+
+/* ✅ Your added footer rule (kept) */
+footer{
+  color: rgba(255,255,255,.72);
 }
