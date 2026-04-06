@@ -68,16 +68,9 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  min-width: 220px;
+  min-width: 120px;
 }
 .brand-logo{ height: 36px; width: auto; display:block; }
-.brand-text{
-  color:#fff;
-  font-weight: 900;
-  letter-spacing: .2px;
-  white-space: nowrap;
-}
 
 .header-nav{
   display:flex;
