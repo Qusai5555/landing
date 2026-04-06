@@ -4,45 +4,6 @@
 document.getElementById('y').textContent = new Date().getFullYear();
 
 /* =========================
-  HERO MEDIA SLIDESHOW
-========================= */
-(function(){
-  const media = document.getElementById('heroBgSlider');
-  if(!media) return;
-
-  const slides = media.querySelectorAll('.hero-bg-slide');
-  if(!slides.length) return;
-
-  let activeIndex = 0;
-  let timer = null;
-
-  function show(index){
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('is-active', i === index);
-    });
-  }
-
-  function next(){
-    activeIndex = (activeIndex + 1) % slides.length;
-    show(activeIndex);
-  }
-
-  function start(){
-    timer = setInterval(next, 3000);
-  }
-
-  function stop(){
-    if(timer) clearInterval(timer);
-  }
-
-  media.addEventListener('mouseenter', stop);
-  media.addEventListener('mouseleave', start);
-
-  show(activeIndex);
-  start();
-})();
-
-/* =========================
   SERVICES SLIDER DATA
 ========================= */
 const slides = [
