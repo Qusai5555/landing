@@ -70,7 +70,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   align-items:center;
   min-width: 120px;
 }
-.brand-logo{ height: 36px; width: auto; display:block; }
+.brand-logo{ height: 56px; width: auto; display:block; }
 
 .header-nav{
   display:flex;
@@ -640,7 +640,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   .why-grid-6{ grid-template-columns:1fr; }
 
   .nav-link{ height: 36px; padding: 0 12px; }
-  .brand-logo{ height: 34px; }
+  .brand-logo{ height: 44px; }
 
   .slide{
     grid-template-columns: 1fr;
