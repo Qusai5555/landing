@@ -7,10 +7,10 @@ document.getElementById('y').textContent = new Date().getFullYear();
   HERO MEDIA SLIDESHOW
 ========================= */
 (function(){
-  const media = document.getElementById('heroMedia');
+  const media = document.getElementById('heroBgSlider');
   if(!media) return;
 
-  const slides = media.querySelectorAll('.hero-media-slide');
+  const slides = media.querySelectorAll('.hero-bg-slide');
   if(!slides.length) return;
 
   let activeIndex = 0;
@@ -28,7 +28,7 @@ document.getElementById('y').textContent = new Date().getFullYear();
   }
 
   function start(){
-    timer = setInterval(next, 3400);
+    timer = setInterval(next, 3000);
   }
 
   function stop(){
