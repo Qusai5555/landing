@@ -4,28 +4,42 @@
 document.getElementById('y').textContent = new Date().getFullYear();
 
 /* =========================
-  HERO LOGO TILT (Desktop only)
+  HERO MEDIA SLIDESHOW
 ========================= */
 (function(){
-  const wrap = document.getElementById('heroLogoWrap');
-  const tilt = document.getElementById('heroLogoTilt');
-  if(!wrap || !tilt) return;
+  const media = document.getElementById('heroBgSlider');
+  if(!media) return;
 
-  // Disable on touch devices
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
-  if(isTouch) return;
+  const slides = media.querySelectorAll('.hero-bg-slide');
+  if(!slides.length) return;
 
-  wrap.addEventListener('mousemove', (e) => {
-    const r = wrap.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    tilt.style.transform =
-      `rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
-  });
+  let activeIndex = 0;
+  let timer = null;
 
-  wrap.addEventListener('mouseleave', () => {
-    tilt.style.transform = 'rotateX(0deg) rotateY(0deg)';
-  });
+  function show(index){
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === index);
+    });
+  }
+
+  function next(){
+    activeIndex = (activeIndex + 1) % slides.length;
+    show(activeIndex);
+  }
+
+  function start(){
+    timer = setInterval(next, 3000);
+  }
+
+  function stop(){
+    if(timer) clearInterval(timer);
+  }
+
+  media.addEventListener('mouseenter', stop);
+  media.addEventListener('mouseleave', start);
+
+  show(activeIndex);
+  start();
 })();
 
 /* =========================
