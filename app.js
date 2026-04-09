@@ -102,7 +102,6 @@ document.getElementById('y').textContent = new Date().getFullYear();
             <article class="solution-card">
               <h4><span class="solution-card__title-box">${card.title}</span></h4>
               <p>${card.description}</p>
-              ${card.image ? `<div class="solution-media"><img src="${card.image}" alt="${card.title}"></div>` : ""}
             </article>
           `).join("")}
         </div>
