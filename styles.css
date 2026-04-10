@@ -573,8 +573,10 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
 .why .card{
   position: relative;
-  border: 1px solid rgba(129, 140, 248, .32);
-  background: linear-gradient(160deg, rgba(15, 23, 42, .72), rgba(17, 24, 39, .62));
+  border: 1px solid rgba(129, 140, 248, .30);
+  background: linear-gradient(130deg, #0F172A 0%, #1E1B4B 24%, #1D4ED8 50%, #312E81 74%, #0B1120 100%);
+  background-size: 320% 320%;
+  animation: ctaWineShift 13s ease-in-out infinite;
   backdrop-filter: blur(10px);
   border-radius: var(--radius);
   padding: 18px;
@@ -586,17 +588,24 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 .why .card::before{
   content:"";
   position:absolute;
+  inset:-1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(420px 180px at 50% -16%, rgba(255,255,255,.12), transparent 72%),
+    radial-gradient(280px 140px at 18% 88%, rgba(59,130,246,.18), transparent 78%);
+  mix-blend-mode: screen;
+  opacity:.68;
+  pointer-events:none;
+}
+.why .card::after{
+  content:"";
+  position:absolute;
   inset:0;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(59,130,246,.85), rgba(99,102,241,.82), rgba(139,92,246,.85));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity:.58;
-  animation: neonBorderFlow 6s linear infinite;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.04), transparent 34%),
+    radial-gradient(320px 140px at 80% 16%, rgba(139,92,246,.16), transparent 72%);
+  animation: ctaGlowDrift 10s ease-in-out infinite;
   pointer-events:none;
 }
 .why .card:hover{
@@ -604,7 +613,8 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   box-shadow: 0 24px 56px rgba(37, 99, 235, .30);
   border-color: rgba(129, 140, 248, .52);
 }
-.why .card:hover::before{ opacity:.92; }
+.why .card:hover::before{ opacity:.9; }
+.why .card:hover::after{ opacity:.9; }
 .why .card h4{ color:#F8FAFC; }
 .why .card p{ color: rgba(226,232,240,.92); }
 
@@ -626,11 +636,6 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   color: #E2E8F0;
   margin-bottom: 8px;
   box-shadow: 0 0 18px rgba(99, 102, 241, .24);
-}
-
-@keyframes neonBorderFlow{
-  0%{ filter: hue-rotate(0deg); }
-  100%{ filter: hue-rotate(24deg); }
 }
 
 /* =========================
