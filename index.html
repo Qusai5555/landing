@@ -78,24 +78,20 @@
     <section class="services" id="services">
       <div class="container">
         <div class="services__head">
-          <div>
-            <h2 class="services__title">Our Services</h2>
-            <p class="services__subtitle">
-              Visual-first, interactive slides. Auto-plays smoothly, and stops the moment you interact.
-            </p>
-          </div>
-
-          <div class="dots" id="dots" aria-label="Service slide indicators"></div>
+          <h2 class="services__title">Our Solutions</h2>
+          <p class="services__subtitle">
+            Explore our three core service areas, designed to help organizations learn, apply, and experience AI in practical ways.
+          </p>
         </div>
 
-        <div class="slider" id="slider" aria-live="polite"></div>
+        <div class="services-tabs" id="servicesTabs" role="tablist" aria-label="Solutions categories">
+          <button class="services-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="servicesPanel" data-tab="ai-software">AI &amp; Software</button>
+          <button class="services-tab" type="button" role="tab" aria-selected="false" aria-controls="servicesPanel" data-tab="training-center">Training Center</button>
+          <button class="services-tab" type="button" role="tab" aria-selected="false" aria-controls="servicesPanel" data-tab="hardware">Hardware</button>
+        </div>
 
-        <div class="controls">
-          <div class="hint">Tip: Use Prev/Next to navigate (auto stops on interaction).</div>
-          <div class="btns">
-            <button class="btn" id="prev" type="button">← Prev</button>
-            <button class="btn" id="next" type="button">Next →</button>
-          </div>
+        <div class="services-panel is-visible" id="servicesPanel" role="tabpanel" aria-live="polite">
+          <div class="services-content" id="servicesContent"></div>
         </div>
       </div>
     </section>
