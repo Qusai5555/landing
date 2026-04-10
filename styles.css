@@ -646,12 +646,9 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   border-radius: var(--radius);
   padding: 26px;
   box-shadow: 0 24px 64px rgba(8, 2, 6, .42);
-  background:
-    radial-gradient(560px 220px at 12% 12%, rgba(194, 93, 128, .22), transparent 72%),
-    radial-gradient(520px 240px at 85% 86%, rgba(127, 49, 86, .20), transparent 75%),
-    linear-gradient(140deg, #3A0E21 0%, #5C1632 42%, #7A1F45 100%);
-  background-size: 140% 140%, 160% 160%, 180% 180%;
-  animation: ctaWineShift 20s ease-in-out infinite;
+  background: linear-gradient(130deg, #2B0917 0%, #4A1128 28%, #6C1C3D 52%, #4F132B 74%, #301022 100%);
+  background-size: 240% 240%;
+  animation: ctaWineShift 16s ease-in-out infinite;
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -666,9 +663,11 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   content:"";
   position:absolute;
   inset:-1px;
-  background: radial-gradient(680px 200px at 50% -12%, rgba(255,255,255,.16), transparent 72%);
+  background:
+    radial-gradient(700px 220px at 50% -12%, rgba(255,255,255,.14), transparent 72%),
+    radial-gradient(420px 170px at 18% 88%, rgba(198, 105, 142, .15), transparent 76%);
   mix-blend-mode: screen;
-  opacity:.6;
+  opacity:.72;
   pointer-events:none;
 }
 .cta-final-box::after{
@@ -676,9 +675,9 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   position:absolute;
   inset:0;
   background:
-    linear-gradient(115deg, rgba(255,255,255,.04), transparent 36%),
-    radial-gradient(420px 160px at 76% 12%, rgba(255,255,255,.10), transparent 72%);
-  animation: ctaGlowDrift 18s ease-in-out infinite;
+    linear-gradient(115deg, rgba(255,255,255,.05), transparent 35%),
+    radial-gradient(440px 180px at 78% 14%, rgba(255,255,255,.10), transparent 72%);
+  animation: ctaGlowDrift 14s ease-in-out infinite;
   pointer-events:none;
 }
 .cta-final-box > *{
@@ -733,10 +732,10 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
 @keyframes ctaWineShift{
   0%, 100%{
-    background-position: 0% 50%, 100% 50%, 50% 50%;
+    background-position: 0% 45%;
   }
   50%{
-    background-position: 100% 46%, 0% 54%, 42% 58%;
+    background-position: 100% 55%;
   }
 }
 @keyframes ctaGlowDrift{
