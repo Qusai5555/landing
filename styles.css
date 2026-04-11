@@ -50,7 +50,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   HEADER
 ========================= */
 .main-header{
-  padding: 20px 0;
+  padding: 20px 0 6px;
   position: absolute;
   inset: 0 0 auto 0;
   z-index: 20;
@@ -62,7 +62,7 @@ section{ scroll-margin-top: calc(var(--headerH) + 14px); }
   position:absolute;
   left:0;
   right:0;
-  bottom: 8px;
+  bottom: 0;
   height: 1px;
   background: rgba(255,255,255,.12);
   pointer-events:none;
