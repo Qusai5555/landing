@@ -137,6 +137,7 @@ document.getElementById('y').textContent = new Date().getFullYear();
   function renderTab(tabKey){
     const data = servicesData[tabKey];
     if(!data) return;
+    const isAiSoftware = tabKey === "ai-software";
 
     panel.classList.remove("is-visible");
     window.requestAnimationFrame(() => {
@@ -144,12 +145,12 @@ document.getElementById('y').textContent = new Date().getFullYear();
         <h3 class="services-content__title"><span class="services-content__title-box">${data.title}</span></h3>
         <p class="services-content__desc">${data.description}</p>
         <p class="services-content__goal">${data.goal}</p>
-        <div class="solution-grid">
+        <div class="solution-grid${isAiSoftware ? " solution-grid--compact" : ""}">
           ${data.cards.map(card => `
-            <article class="solution-card">
+            <article class="solution-card${isAiSoftware ? " solution-card--compact" : ""}">
               <h4><span class="solution-card__title-box">${card.title}</span></h4>
               <p>${card.description}</p>
-              ${visualMarkup(card.visual)}
+              ${isAiSoftware ? "" : visualMarkup(card.visual)}
             </article>
           `).join("")}
         </div>
