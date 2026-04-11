@@ -43,154 +43,138 @@ document.getElementById('y').textContent = new Date().getFullYear();
 })();
 
 /* =========================
-  SERVICES SLIDER DATA
+  SERVICES TABS
 ========================= */
-const slides = [
-  {
-    title: "AI Solutions",
-    desc: "Chatbots, AI agents, and computer vision systems built to solve real business problems.",
-    tags: ["AI Agents","Chatbots","Computer Vision","Intelligent Systems"],
-    image: "images/services/01-ai-solutions.jpg"
-  },
-  {
-    title: "Applications with AI",
-    desc: "Smart AI-powered applications tailored to real-world needs and scalable deployment.",
-    tags: ["Smart Apps","AI Powered","Custom Systems","Deployment"],
-    image: "images/services/02-applications-ai.jpg"
-  },
-  {
-    title: "Automations",
-    desc: "Workflow automation and system integrations that save time and reduce cost.",
-    tags: ["Automation","Workflows","Integrations","Efficiency"],
-    image: "images/services/03-automations.jpg"
-  },
-  {
-    title: "Interactive Web",
-    desc: "Fast, clean, and interactive web experiences focused on UX and conversion.",
-    tags: ["UX","Performance","Motion UI","Modern Web"],
-    image: "images/services/04-interactive-web.jpg"
-  },
-  {
-    title: "Business Intelligence",
-    desc: "Dashboards and analytics that turn data into actionable insights.",
-    tags: ["Dashboards","Analytics","Insights","Data"],
-    image: "images/services/05-business-intelligence.jpg"
-  }
-];
+(function(){
+  const tabsWrap = document.getElementById("servicesTabs");
+  const content = document.getElementById("servicesContent");
+  const panel = document.getElementById("servicesPanel");
+  if(!tabsWrap || !content || !panel) return;
 
-/* =========================
-  SLIDER LOGIC
-========================= */
-const slider   = document.getElementById("slider");
-const dotsWrap = document.getElementById("dots");
-const prevBtn  = document.getElementById("prev");
-const nextBtn  = document.getElementById("next");
+  const servicesData = {
+    "ai-software": {
+      title: "AI & Software Solutions",
+      description: "We design and build AI-powered systems, automation solutions, and data platforms tailored to your business operations.",
+      goal: "We help you automate workflows, improve decision-making, and build smart digital solutions that deliver real impact.",
+      cards: [
+        { title: "AI Agents & Chatbots", description: "Build intelligent assistants that answer questions, automate tasks, and improve customer or team interaction.", visual: "chat" },
+        { title: "Automation Systems", description: "Automate repetitive workflows, connect systems, and reduce manual effort across daily operations.", visual: "automation" },
+        { title: "Data & BI Solutions", description: "Turn raw data into clear dashboards, reports, and insights that support better decision-making.", visual: "data" },
+        { title: "Smart Applications", description: "Develop custom applications powered by AI and modern technologies to support real business needs.", visual: "apps" }
+      ]
+    },
+    "training-center": {
+      title: "AI Training & Enablement",
+      description: "We provide tailored AI training programs designed for organizations, schools, and teams based on their needs, level, and field of work.",
+      goal: "We help individuals and teams understand, use, and apply AI tools effectively in their daily work.",
+      cards: [
+        { title: "Customized Training Programs", description: "Training tailored to your organization, team level, and specific business needs.", visual: "chat" },
+        { title: "Tools & Software Training", description: "We train your team on the tools you need — whether by helping you choose the right solution or delivering training on specific software requested by your organization.", visual: "automation" },
+        { title: "Organization & Team Training", description: "Training programs designed for companies, government entities, schools, and universities.", visual: "apps" },
+        { title: "Practical AI Usage", description: "Learn how to use AI in real work scenarios to improve workflows, productivity, and decision-making.", visual: "data" }
+      ]
+    },
+    hardware: {
+      title: "Smart Hardware & Robotics",
+      description: "We provide interactive robots and smart hardware solutions designed for engagement, education, and real-world applications.",
+      goal: "Enhance user experience, automate interactions, and bring AI into real-world environments.",
+      cards: [
+        { title: "Reception & Welcome Robots", description: "Robots designed to welcome visitors, guide them, and provide information in an interactive way.", visual: "chat" },
+        { title: "Guide & Assistance Robots", description: "Help users navigate spaces, answer questions, and provide real-time assistance.", visual: "automation" },
+        { title: "Educational Robots", description: "Robots used in schools and training environments to support learning and interactive education.", visual: "data" },
+        { title: "Custom Robot Solutions", description: "Robots tailored to specific use cases, integrated with AI to perform customized tasks.", visual: "apps" }
+      ]
+    }
+  };
 
-let active = 0;
-let autoplay = true;
-let timer = null;
-
-function stopAutoplay(){
-  autoplay = false;
-  if(timer) clearInterval(timer);
-}
-
-function renderDots(){
-  dotsWrap.innerHTML = "";
-  slides.forEach((_, i) => {
-    const dot = document.createElement("div");
-    dot.className = "dot" + (i === active ? " active" : "");
-    dot.addEventListener("click", () => {
-      stopAutoplay();
-      goTo(i, i > active ? "right" : "left");
-    });
-    dotsWrap.appendChild(dot);
-  });
-}
-
-function renderSlides(){
-  slider.innerHTML = "";
-  slides.forEach((s, i) => {
-    const slide = document.createElement("div");
-    slide.className = "slide" + (i === active ? " active" : "");
-
-    slide.innerHTML = `
-      <div class="content">
-        <h3>${s.title}</h3>
-        <p>${s.desc}</p>
-        <div class="tags">
-          ${s.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+  function visualMarkup(type){
+    if(type === "chat"){
+      return `
+        <div class="solution-visual solution-visual--chat" aria-hidden="true">
+          <span class="bubble bubble-left"></span>
+          <span class="bubble bubble-right"></span>
+          <span class="node node-a"></span>
+          <span class="node node-b"></span>
+          <span class="node node-c"></span>
+          <span class="link"></span>
         </div>
-      </div>
-      <div class="visual">
-        <img src="${s.image}" alt="${s.title}">
+      `;
+    }
+    if(type === "automation"){
+      return `
+        <div class="solution-visual solution-visual--automation" aria-hidden="true">
+          <span class="step step-1"></span>
+          <span class="step step-2"></span>
+          <span class="step step-3"></span>
+          <span class="arrow arrow-1"></span>
+          <span class="arrow arrow-2"></span>
+        </div>
+      `;
+    }
+    if(type === "data"){
+      return `
+        <div class="solution-visual solution-visual--data" aria-hidden="true">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+          <span class="bar bar-4"></span>
+          <span class="curve"></span>
+          <span class="dot dot-1"></span>
+          <span class="dot dot-2"></span>
+        </div>
+      `;
+    }
+    return `
+      <div class="solution-visual solution-visual--apps" aria-hidden="true">
+        <span class="window"></span>
+        <span class="module module-1"></span>
+        <span class="module module-2"></span>
+        <span class="module module-3"></span>
       </div>
     `;
+  }
 
-    slide.addEventListener("click", stopAutoplay);
-    slide.addEventListener("pointerdown", stopAutoplay, { passive: true });
+  function renderTab(tabKey){
+    const data = servicesData[tabKey];
+    if(!data) return;
+    const isAiSoftware = tabKey === "ai-software";
 
-    slider.appendChild(slide);
+    panel.classList.remove("is-visible");
+    window.requestAnimationFrame(() => {
+      content.innerHTML = `
+        <h3 class="services-content__title"><span class="services-content__title-box">${data.title}</span></h3>
+        <p class="services-content__desc">${data.description}</p>
+        <p class="services-content__goal">${data.goal}</p>
+        <div class="solution-grid${isAiSoftware ? " solution-grid--compact" : ""}">
+          ${data.cards.map(card => `
+            <article class="solution-card${isAiSoftware ? " solution-card--compact" : ""}">
+              <h4><span class="solution-card__title-box">${card.title}</span></h4>
+              <p>${card.description}</p>
+              ${isAiSoftware ? "" : visualMarkup(card.visual)}
+            </article>
+          `).join("")}
+        </div>
+      `;
+
+      panel.classList.add("is-visible");
+    });
+  }
+
+  function setActiveTab(tabKey){
+    tabsWrap.querySelectorAll(".services-tab").forEach(btn => {
+      const isActive = btn.dataset.tab === tabKey;
+      btn.classList.toggle("is-active", isActive);
+      btn.setAttribute("aria-selected", String(isActive));
+    });
+    renderTab(tabKey);
+  }
+
+  tabsWrap.querySelectorAll(".services-tab").forEach(btn => {
+    btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
   });
-}
 
-function update(direction){
-  const allSlides = slider.querySelectorAll(".slide");
-  allSlides.forEach((slide, i) => {
-    slide.classList.remove("active", "enter-from-right", "enter-from-left");
-    if(i === active){
-      slide.classList.add("active");
-      slide.classList.add(
-        direction === "right" ? "enter-from-right" : "enter-from-left"
-      );
-    }
-  });
-
-  dotsWrap.querySelectorAll(".dot")
-    .forEach((d,i)=>d.classList.toggle("active", i === active));
-}
-
-function goTo(index, direction){
-  active = (index + slides.length) % slides.length;
-  update(direction);
-}
-
-function next(){ goTo(active + 1, "right"); }
-function prev(){ goTo(active - 1, "left"); }
-
-function startAutoplay(){
-  timer = setInterval(() => {
-    if(autoplay) next();
-  }, 2000);
-}
-
-/* =========================
-  EVENTS
-========================= */
-prevBtn.addEventListener("click", () => {
-  stopAutoplay();
-  prev();
-});
-
-nextBtn.addEventListener("click", () => {
-  stopAutoplay();
-  next();
-});
-
-document.addEventListener("keydown", (e) => {
-  if(e.key === "ArrowRight"){ stopAutoplay(); next(); }
-  if(e.key === "ArrowLeft"){ stopAutoplay(); prev(); }
-});
-
-slider.addEventListener("wheel", stopAutoplay, { passive: true });
-slider.addEventListener("touchstart", stopAutoplay, { passive: true });
-
-/* =========================
-  INIT
-========================= */
-renderSlides();
-renderDots();
-startAutoplay();
+  setActiveTab("ai-software");
+})();
 
 /* =========================
   WHY SECTION ANIMATION
