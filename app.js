@@ -87,57 +87,9 @@ document.getElementById('y').textContent = new Date().getFullYear();
     }
   };
 
-  function visualMarkup(type){
-    if(type === "chat"){
-      return `
-        <div class="solution-visual solution-visual--chat" aria-hidden="true">
-          <span class="bubble bubble-left"></span>
-          <span class="bubble bubble-right"></span>
-          <span class="node node-a"></span>
-          <span class="node node-b"></span>
-          <span class="node node-c"></span>
-          <span class="link"></span>
-        </div>
-      `;
-    }
-    if(type === "automation"){
-      return `
-        <div class="solution-visual solution-visual--automation" aria-hidden="true">
-          <span class="step step-1"></span>
-          <span class="step step-2"></span>
-          <span class="step step-3"></span>
-          <span class="arrow arrow-1"></span>
-          <span class="arrow arrow-2"></span>
-        </div>
-      `;
-    }
-    if(type === "data"){
-      return `
-        <div class="solution-visual solution-visual--data" aria-hidden="true">
-          <span class="bar bar-1"></span>
-          <span class="bar bar-2"></span>
-          <span class="bar bar-3"></span>
-          <span class="bar bar-4"></span>
-          <span class="curve"></span>
-          <span class="dot dot-1"></span>
-          <span class="dot dot-2"></span>
-        </div>
-      `;
-    }
-    return `
-      <div class="solution-visual solution-visual--apps" aria-hidden="true">
-        <span class="window"></span>
-        <span class="module module-1"></span>
-        <span class="module module-2"></span>
-        <span class="module module-3"></span>
-      </div>
-    `;
-  }
-
   function renderTab(tabKey){
     const data = servicesData[tabKey];
     if(!data) return;
-    const isAiSoftware = tabKey === "ai-software";
 
     panel.classList.remove("is-visible");
     window.requestAnimationFrame(() => {
@@ -145,12 +97,11 @@ document.getElementById('y').textContent = new Date().getFullYear();
         <h3 class="services-content__title"><span class="services-content__title-box">${data.title}</span></h3>
         <p class="services-content__desc">${data.description}</p>
         <p class="services-content__goal">${data.goal}</p>
-        <div class="solution-grid${isAiSoftware ? " solution-grid--compact" : ""}">
+        <div class="solution-grid">
           ${data.cards.map(card => `
-            <article class="solution-card${isAiSoftware ? " solution-card--compact" : ""}">
+            <article class="solution-card">
               <h4><span class="solution-card__title-box">${card.title}</span></h4>
               <p>${card.description}</p>
-              ${isAiSoftware ? "" : visualMarkup(card.visual)}
             </article>
           `).join("")}
         </div>
